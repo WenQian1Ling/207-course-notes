@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Exercise (Chapter 5: Java Gotchas and Subtleties) — shadowing, array copying,
  * and autoboxing.
@@ -29,7 +31,7 @@ public class Gotchas {
    */
   public void setName(String name) {
     // TODO: assign the parameter to the FIELD (hint: use `this`).
-    name = name;
+    this.name = name;
   }
 
   /**
@@ -43,7 +45,12 @@ public class Gotchas {
   public static int[][] deepCopy(int[][] grid) {
     // TODO: build a new outer array and copy EACH inner array too, so that
     //       nothing is shared with `grid`.
-    return grid.clone();
+    int gridLength = grid.length;
+    int[][] copyGrid = new int[gridLength][];
+    for(int i = 0; i < gridLength; i++) {
+        copyGrid[i] = grid[i].clone();
+    }
+    return copyGrid;
   }
 
   /**
@@ -58,6 +65,6 @@ public class Gotchas {
    */
   public static boolean sameValue(Integer a, Integer b) {
     // TODO: compare the VALUES, not the references.
-    return a == b;
+    return Objects.equals(a, b);
   }
 }
